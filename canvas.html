@@ -27,6 +27,10 @@
             background-color: black;
         }
 
+        .modal {
+            display: inline;
+        }
+
     </style>
     <script src="https://code.jquery.com/jquery.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -41,7 +45,7 @@
         <button type="button" class="btn" id="start" style="font-family:'Courier New', Courier, monospace; margin-left: 432px; margin-top: 20px; background-color: darkgray;">Play</button>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="gameover-modal">
+    <div class="modal" tabindex="-1" toggle="modal" role="dialog" id="gameover-modal">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -69,8 +73,8 @@ $("#start").on("click", function(event) {
         var ctx = canvas.getContext("2d");
         var x = canvas.width / 2;
         var y = canvas.height - 30;
-        var dx = 2;
-        var dy = -2;
+        var dx = 3;
+        var dy = -3;
         var ballRadius = 5;
         var paddleHeight = 10;
         var paddleWidth = 32.5;
@@ -141,6 +145,7 @@ $("#start").on("click", function(event) {
         function drawBall() {
             ctx.beginPath();
             ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+            ctx.gravity
             ctx.fillStyle = "#32CD32";
             ctx.fill();
             ctx.closePath();
@@ -194,6 +199,7 @@ $("#start").on("click", function(event) {
                 }
                 else {
                     clearInterval(game);
+                    $("#gameover-modal").modal("show");
                     alert("GAME OVER");
                     window.location.reload();
                 }
